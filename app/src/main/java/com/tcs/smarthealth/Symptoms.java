@@ -6,16 +6,23 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Pair;
+<<<<<<< HEAD
 import android.view.View;
+=======
+>>>>>>> origin/master
 import android.widget.TextView;
 
 public class Symptoms extends AppCompatActivity {
     public final static String MESSAGE_KEY="com.tcs.smarthealth.msgkey";
     DatabaseHelper dbhelper;
     TextView t1;
+<<<<<<< HEAD
     String name,msg;
     int ndid,nodeyes,nodeno;
     Integer iCorrectCounter = new Integer(0);
+=======
+    String name;
+>>>>>>> origin/master
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +32,11 @@ public class Symptoms extends AppCompatActivity {
         SQLiteDatabase db=dbhelper.getWritableDatabase();
         Intent i1=getIntent();
         String msg=i1.getStringExtra(MESSAGE_KEY);
+<<<<<<< HEAD
 
+=======
+        Integer iCorrectCounter = new Integer(0);
+>>>>>>> origin/master
         try {
             iCorrectCounter = new Integer(msg);
         } catch (Exception ignore) { }
@@ -36,7 +47,10 @@ public class Symptoms extends AppCompatActivity {
 
             c.moveToFirst();
             name=c.getString(3);
+<<<<<<< HEAD
             ndid=c.getInt(2);
+=======
+>>>>>>> origin/master
             c.close();
         }catch (Exception e){}
         db.close();
@@ -45,6 +59,7 @@ public class Symptoms extends AppCompatActivity {
        // setContentView(t1);
 
     }
+<<<<<<< HEAD
     public void Clickyes(View view)
     {
         SQLiteDatabase db=dbhelper.getWritableDatabase();
@@ -92,4 +107,6 @@ Cursor c2;
         db.close();
         t1.setText(msg);
     }
+=======
+>>>>>>> origin/master
 }
