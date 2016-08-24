@@ -21,7 +21,7 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     String DB_PATH=null;
-    private static String DB_NAME="doctorDiagnose";
+    private static String DB_NAME="doctorDiagnose3.db";
     private SQLiteDatabase myDatabase;
     private final Context myContext;
 
@@ -42,7 +42,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             this.getReadableDatabase();
             try{
                 copyDatabase();
-            }catch (IOException e){throw new  Error("Error Copying Databse");}
+            }catch (IOException e){throw new RuntimeException(e);}
         }
     }
 

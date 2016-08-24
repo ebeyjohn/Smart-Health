@@ -22,30 +22,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Yes"
-<<<<<<< HEAD
         android:id="@+id/buttonyes"
         android:layout_below="@+id/textView"
         android:layout_alignParentStart="true"
         android:onClick="Clickyes"/>
-=======
-        android:id="@+id/button"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentStart="true" />
->>>>>>> origin/master
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="No"
-<<<<<<< HEAD
         android:id="@+id/buttonno"
         android:layout_below="@+id/textView"
         android:layout_toEndOf="@+id/buttonyes"
         android:onClick="Clickno"/>
-=======
-        android:id="@+id/button2"
-        android:layout_below="@+id/textView"
-        android:layout_toEndOf="@+id/button" />
->>>>>>> origin/master
 </RelativeLayout>
