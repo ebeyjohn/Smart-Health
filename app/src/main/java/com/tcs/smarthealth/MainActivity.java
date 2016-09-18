@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.opengl.EGLExt;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.util.Pair;
 import android.view.Menu;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -26,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     DatabaseHelper dbhelper;
     ListView LDieces;
     ListAdapter adapter;
+    EditText inputSearch;
     public final static String MESSAGE_KEY="com.tcs.smarthealth.msgkey";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         }catch (IOException e) {
             e.printStackTrace();
         }
+        inputSearch = (EditText) findViewById(R.id.inputSearch);
         LDieces=(ListView)findViewById(R.id.listView);
         List<Pair<Integer, String>> values;
         values=new ArrayList<Pair<Integer, String>>();
@@ -48,8 +53,8 @@ public class MainActivity extends AppCompatActivity {
             c.moveToFirst();
             do {
 
-                name=c.getString(2);
-                int id = c.getInt(1);
+                name=c.getString(1);
+                int id = c.getInt(0);
                 Pair<Integer, String> pair = new Pair<Integer, String>(id, name);
                 values.add(pair);
             }while (c.moveToNext());
@@ -71,7 +76,28 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+        inputSearch.addTextChangedListener(new TextWatcher() {
 
+            @Override
+            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+                // When user changed the Text
+               // ((ArrayAdapter<?>)MainActivity.this.adapter).getFilter().filter(cs);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+                                          int arg3) {
+                // TODO Auto-generated method stub
+
+            }
+
+        });
+        inputSearch.clearFocus();
         }
 
 

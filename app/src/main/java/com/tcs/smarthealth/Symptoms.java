@@ -3,6 +3,7 @@ package com.tcs.smarthealth;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,13 +16,13 @@ public class Symptoms extends AppCompatActivity {
     public final static String MESSAGE_KEY="com.tcs.smarthealth.msgkey";
     DatabaseHelper dbhelper;
     TextView t1;
-    Cursor qs,ins,c;
+    Cursor qs,ins,c,count1;
     String name,msg;
-    int ndid,nodeyes,nodeno,dsid,ins_id,couter;
+    int ndid,nodeyes,nodeno,dsid,ins_id,couter,symcount=1;
     Integer iCorrectCounter = new Integer(0);
     int[] myIntArray = new int[15];
     int[] dieArray=new int[100];
-    Button yes,no;
+    Button yes,no,b1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +30,8 @@ public class Symptoms extends AppCompatActivity {
         t1=(TextView)findViewById(R.id.textView);
         yes=(Button)findViewById(R.id.buttonyes);
        no=(Button)findViewById(R.id.buttonno);
+        b1=no=(Button)findViewById(R.id.button1);
+        b1.setVisibility(View.GONE);
         dbhelper=new DatabaseHelper(getApplicationContext());
         SQLiteDatabase db=dbhelper.getWritableDatabase();
         Intent i1=getIntent();
@@ -83,6 +86,7 @@ public class Symptoms extends AppCompatActivity {
 
     public void Clickyes(View view)
     {
+        symcount=symcount+1;
         yes.setVisibility(view.GONE);
         int i=0,f=0;
         SQLiteDatabase db=dbhelper.getWritableDatabase();
@@ -135,7 +139,36 @@ public class Symptoms extends AppCompatActivity {
 
     }catch (Exception e){}
         yes.setVisibility(view.VISIBLE);
-    t1.setText(name);
+
+        if(qs.isAfterLast())
+
+        {   Cursor cd,sd;
+            int sc;
+            float avg,a1,a2;
+            sd=db.rawQuery("SELECT * FROM sick_sym where sid="+dsid,null);
+            sc=sd.getCount();
+            a1=sc;
+            a2=symcount;
+            avg=(a2/a1)*100;
+            int chk= (int) avg;
+            if(chk>=50)
+            {
+            cd=db.rawQuery("SELECT * FROM sickness where sid="+dsid,null);
+            cd.moveToFirst();
+            name="Possible couse of diecese is "+cd.getString(1)+"Chance by "+chk+"%";
+            t1.setTextColor(Color.RED);
+            }
+            else
+            {
+                name="canot diagnosis"+chk;
+            }
+        }
+        else {
+            t1.setTextColor(Color.GREEN);
+        }
+
+
+    t1.setText(""+name);
 
     }
 
@@ -167,26 +200,37 @@ public class Symptoms extends AppCompatActivity {
 
     public void Clickno(View view)
     {
-        int i=0,f=0;
+        int i=0,f=0,cs=0;
         SQLiteDatabase db=dbhelper.getWritableDatabase();
-        try{
-            ins=db.rawQuery("SELECT sid FROM new",null);
-            ins.moveToFirst();
-            ins.moveToNext();
+        try {
+            count1 = db.rawQuery("select * from new", null);
+            cs = count1.getCount();
+        }catch (Exception e) {
+        }
+        if(cs>1) {
+            try {
+                ins = db.rawQuery("SELECT sid FROM new", null);
+                ins.moveToFirst();
+                ins.moveToNext();
+                do {
+                    ins_id = ins.getInt(0);
+                    dieArray[i] = ins_id;
+                    i = i + 1;
+                } while (ins.moveToNext());
+                ins.close();
+            } catch (Exception e) {
+            }
+            db.execSQL("delete from new");
+            int j = 0;
             do {
-                ins_id=ins.getInt(0);
-                dieArray[i]=ins_id;
-                i=i+1;
-            }while (ins.moveToNext());
-            ins.close();
-        }catch (Exception e){}
-        db.execSQL("delete from new");
-        int j=0;
-        do {
-            ins_id=dieArray[j];
-            j=j+1;
-            db.execSQL("insert into new (sid)" + "values("+ins_id+") ;");
-        }while (j<i);
+                ins_id = dieArray[j];
+                j = j + 1;
+                db.execSQL("insert into new (sid)" + "values(" + ins_id + ") ;");
+            } while (j < i);
+
+        }
+
+
 
         try{
             c=db.rawQuery("SELECT * FROM new",null);
@@ -198,7 +242,7 @@ public class Symptoms extends AppCompatActivity {
             qs.moveToFirst();
             int k=0;
             do{
-                j=0;
+                int j=0;
                 f=0;
                 while (j<=couter)
                 {
@@ -218,8 +262,38 @@ public class Symptoms extends AppCompatActivity {
 
         }catch (Exception e){}
         yes.setVisibility(view.VISIBLE);
-        t1.setText(name);
-        db.close();
+        if(qs.isAfterLast())
+
+        {   Cursor cd,sd;
+            int sc;
+            float avg,a1,a2;
+            sd=db.rawQuery("SELECT * FROM sick_sym where sid="+dsid,null);
+            sc=sd.getCount();
+            a1=sc;
+            a2=symcount;
+            avg=(a2/a1)*100;
+            int chk= (int) avg;
+            if(chk>=50)
+            {
+                cd=db.rawQuery("SELECT * FROM sickness where sid="+dsid,null);
+                cd.moveToFirst();
+                name="Possible couse of diecese is "+cd.getString(1)+"Chance by "+chk+"%";
+                t1.setTextColor(Color.RED);
+            }
+            else
+            {
+                name="canot diagnosis"+chk;
+            }
+        }
+        else {
+
+        }
+
+
+        t1.setText(""+name);
+
+
+
 
     }
 }
