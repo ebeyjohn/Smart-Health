@@ -49,9 +49,23 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
+        android:text="View Diecese info"
         android:id="@+id/button1"
         android:layout_below="@+id/buttonyes"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="49dp" />
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="100dp"
+        android:onClick="diecese"
+        android:layout_marginTop="10dp" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Over"
+        android:onClick="homepage"
+        android:id="@+id/button2"
+        android:layout_below="@+id/button1"
+        android:layout_alignParentStart="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="10dp" />
 </RelativeLayout>

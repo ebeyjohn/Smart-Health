@@ -22,7 +22,8 @@ public class Symptoms extends AppCompatActivity {
     Integer iCorrectCounter = new Integer(0);
     int[] myIntArray = new int[15];
     int[] dieArray=new int[100];
-    Button yes,no,b1;
+    Button yes,no,b1,b2;
+    public final static String MESSAGE_KEY2="com.tcs.smarthealth.msgkey";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,8 +31,10 @@ public class Symptoms extends AppCompatActivity {
         t1=(TextView)findViewById(R.id.textView);
         yes=(Button)findViewById(R.id.buttonyes);
        no=(Button)findViewById(R.id.buttonno);
-        b1=no=(Button)findViewById(R.id.button1);
+        b1=(Button)findViewById(R.id.button1);
         b1.setVisibility(View.GONE);
+        b2=(Button)findViewById(R.id.button2);
+        b2.setVisibility(View.GONE);
         dbhelper=new DatabaseHelper(getApplicationContext());
         SQLiteDatabase db=dbhelper.getWritableDatabase();
         Intent i1=getIntent();
@@ -87,7 +90,6 @@ public class Symptoms extends AppCompatActivity {
     public void Clickyes(View view)
     {
         symcount=symcount+1;
-        yes.setVisibility(view.GONE);
         int i=0,f=0;
         SQLiteDatabase db=dbhelper.getWritableDatabase();
         try{
@@ -138,11 +140,15 @@ public class Symptoms extends AppCompatActivity {
 
 
     }catch (Exception e){}
-        yes.setVisibility(view.VISIBLE);
+
 
         if(qs.isAfterLast())
 
-        {   Cursor cd,sd;
+        {
+
+            yes.setVisibility(view.GONE);
+            no.setVisibility(view.GONE);
+            Cursor cd,sd;
             int sc;
             float avg,a1,a2;
             sd=db.rawQuery("SELECT * FROM sick_sym where sid="+dsid,null);
@@ -155,16 +161,20 @@ public class Symptoms extends AppCompatActivity {
             {
             cd=db.rawQuery("SELECT * FROM sickness where sid="+dsid,null);
             cd.moveToFirst();
-            name="Possible couse of diecese is "+cd.getString(1)+"Chance by "+chk+"%";
+            name="Diagnosed diecese is "+cd.getString(1)+" : Chance by "+chk+"%";
             t1.setTextColor(Color.RED);
+                b1.setVisibility(View.VISIBLE);
+                b2.setVisibility(View.VISIBLE);
             }
             else
             {
-                name="canot diagnosis"+chk;
+                b2.setVisibility(View.VISIBLE);
+                t1.setTextColor(Color.MAGENTA);
+                name="Cannot diagnosis TRY AGAIN";
             }
         }
         else {
-            t1.setTextColor(Color.GREEN);
+            //t1.setTextColor(Color.GREEN);
         }
 
 
@@ -261,10 +271,12 @@ public class Symptoms extends AppCompatActivity {
             myIntArray[couter]=qs.getInt(2);
 
         }catch (Exception e){}
-        yes.setVisibility(view.VISIBLE);
+
         if(qs.isAfterLast())
 
-        {   Cursor cd,sd;
+        {   yes.setVisibility(view.GONE);
+            no.setVisibility(view.GONE);
+            Cursor cd,sd;
             int sc;
             float avg,a1,a2;
             sd=db.rawQuery("SELECT * FROM sick_sym where sid="+dsid,null);
@@ -277,12 +289,16 @@ public class Symptoms extends AppCompatActivity {
             {
                 cd=db.rawQuery("SELECT * FROM sickness where sid="+dsid,null);
                 cd.moveToFirst();
-                name="Possible couse of diecese is "+cd.getString(1)+"Chance by "+chk+"%";
+                name="Diagnosed diecese is "+cd.getString(1)+" : Chance by "+chk+"%";
                 t1.setTextColor(Color.RED);
+                b1.setVisibility(View.VISIBLE);
+                b2.setVisibility(View.VISIBLE);
             }
             else
-            {
-                name="canot diagnosis"+chk;
+            {   t1.setTextColor(Color.MAGENTA);
+                t1.setTextSize(12);
+                name="Cannot diagnosis TRY AGAIN";
+                b2.setVisibility(View.VISIBLE);
             }
         }
         else {
@@ -296,4 +312,12 @@ public class Symptoms extends AppCompatActivity {
 
 
     }
+
+    public void diecese(View view)
+    {Intent i1=new Intent(Symptoms.this,Diecese.class);
+        i1.putExtra(MESSAGE_KEY,String.valueOf(dsid));
+        startActivity(i1);}
+    public void homepage(View view)
+    {Intent i1=new Intent(Symptoms.this,MainActivity.class);
+        startActivity(i1);}
 }
