@@ -20,7 +20,7 @@
     <EditText android:id="@+id/inputSearch"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="Select Symptom"
+        android:hint="Select a Symptom"
         android:windowSoftInputMode="stateAlwaysHidden"
         android:focusable="false"
         android:inputType="textVisiblePassword"/>
@@ -37,13 +37,13 @@
 <LinearLayout android:id="@+id/bottom_menu"
 android:layout_width="fill_parent" android:layout_height="10pt"
 android:orientation="vertical" android:layout_alignParentBottom="true"
-    android:background="@color/colorAccent">
-    <EditText android:id="@+id/inputSearch2"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:hint="Select Symptom"
-        android:windowSoftInputMode="stateAlwaysHidden"
-        android:focusable="false"
-        android:inputType="textVisiblePassword"/>
+    android:background="@color/c1">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="©TCS 2016 and DEN"
+        android:textColor="#ffffff"
+        android:textSize="15dp"
+        android:textAlignment="center"/>
 </LinearLayout>
 </RelativeLayout>

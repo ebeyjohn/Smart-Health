@@ -21,7 +21,7 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     String DB_PATH=null;
-    private static String DB_NAME="doctor1.db";
+    private static String DB_NAME="Health.db";
     private SQLiteDatabase myDatabase;
     private final Context myContext;
 

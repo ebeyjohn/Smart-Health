@@ -1,14 +1,30 @@
-<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+
     tools:context="com.tcs.smarthealth.Symptoms">
 
+    <LinearLayout android:id="@+id/bottom_menu"
+        android:layout_width="fill_parent" android:layout_height="10pt"
+        android:orientation="vertical" android:layout_alignParentBottom="true"
+        android:background="@color/c1">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="©TCS 2016 and DEN"
+            android:textColor="#ffffff"
+            android:textSize="15dp"
+            android:textAlignment="center" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -17,7 +33,8 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:textSize="10pt"
-        android:textColor="@color/colorPrimaryDark"/>
+        android:textColor="@color/colorPrimaryDark"
+        android:textIsSelectable="false" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
@@ -29,7 +46,8 @@
         android:background="@color/accent_material_light"
         android:textColor="#ffffff"
         android:layout_alignBottom="@+id/buttonno"
-        android:layout_marginTop="10pt"
+        android:layout_marginTop="15pt"
+        android:layout_marginLeft="30pt"
         android:layout_alignParentStart="true" />
 
     <Button
@@ -41,25 +59,25 @@
         android:layout_below="@+id/textView"
         android:layout_toEndOf="@+id/buttonyes"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="10pt"
+        android:layout_marginTop="15pt"
         android:onClick="Clickno"
         android:background="#ff0202"
         android:textColor="#ffffff" />
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="View Diecese info"
+        android:layout_height="40dp"
+        android:text="View Disease info"
         android:id="@+id/button1"
-        android:layout_below="@+id/buttonyes"
+        android:layout_below="@+id/textView"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
         android:layout_marginLeft="100dp"
         android:onClick="diecese"
-        android:layout_marginTop="10dp" />
+        android:background="#ffea00" />
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:text="Start Over"
         android:onClick="homepage"
         android:id="@+id/button2"
@@ -67,5 +85,8 @@
         android:layout_alignParentStart="true"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="100dp"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:background="#c0c0bf" />
+</RelativeLayout>
+
 </RelativeLayout>

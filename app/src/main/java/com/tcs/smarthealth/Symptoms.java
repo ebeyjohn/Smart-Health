@@ -20,7 +20,7 @@ public class Symptoms extends AppCompatActivity {
     String name,msg;
     int ndid,nodeyes,nodeno,dsid,ins_id,couter,symcount=1;
     Integer iCorrectCounter = new Integer(0);
-    int[] myIntArray = new int[15];
+    int[] myIntArray = new int[100];
     int[] dieArray=new int[100];
     Button yes,no,b1,b2;
     public final static String MESSAGE_KEY2="com.tcs.smarthealth.msgkey";
@@ -75,15 +75,6 @@ public class Symptoms extends AppCompatActivity {
        // setContentView(t1);
 
     }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -159,9 +150,11 @@ public class Symptoms extends AppCompatActivity {
             int chk= (int) avg;
             if(chk>=50)
             {
+                if(chk==100)
+                    chk=95;
             cd=db.rawQuery("SELECT * FROM sickness where sid="+dsid,null);
             cd.moveToFirst();
-            name="Diagnosed diecese is "+cd.getString(1)+" : Chance by "+chk+"%";
+            name="Diagnosed Disease is "+cd.getString(1)+" : Chance by "+chk+"%";
             t1.setTextColor(Color.RED);
                 b1.setVisibility(View.VISIBLE);
                 b2.setVisibility(View.VISIBLE);
@@ -170,7 +163,7 @@ public class Symptoms extends AppCompatActivity {
             {
                 b2.setVisibility(View.VISIBLE);
                 t1.setTextColor(Color.MAGENTA);
-                name="Cannot diagnosis TRY AGAIN";
+                name="Cannot diagnose - TRY AGAIN";
             }
         }
         else {
@@ -181,30 +174,6 @@ public class Symptoms extends AppCompatActivity {
     t1.setText(""+name);
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -239,7 +208,6 @@ public class Symptoms extends AppCompatActivity {
             } while (j < i);
 
         }
-
 
 
         try{
@@ -287,9 +255,11 @@ public class Symptoms extends AppCompatActivity {
             int chk= (int) avg;
             if(chk>=50)
             {
+                if(chk==100)
+                    chk=95;
                 cd=db.rawQuery("SELECT * FROM sickness where sid="+dsid,null);
                 cd.moveToFirst();
-                name="Diagnosed diecese is "+cd.getString(1)+" : Chance by "+chk+"%";
+                name="Diagnosed Disease is "+cd.getString(1)+" : Chance by "+chk+"%";
                 t1.setTextColor(Color.RED);
                 b1.setVisibility(View.VISIBLE);
                 b2.setVisibility(View.VISIBLE);
@@ -297,7 +267,7 @@ public class Symptoms extends AppCompatActivity {
             else
             {   t1.setTextColor(Color.MAGENTA);
                 t1.setTextSize(12);
-                name="Cannot diagnosis TRY AGAIN";
+                name="Cannot diagnos - TRY AGAIN";
                 b2.setVisibility(View.VISIBLE);
             }
         }
